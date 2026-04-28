@@ -1,42 +1,147 @@
-# NorthPath
+# NorthPath 北极星
 
-AI-powered resume builder that helps craft tailored, job-specific resumes.
+> 面向大学生的 AI 简历制作、校准与编辑工作台
 
-## Features
+NorthPath 北极星帮助大学生从真实经历中挖掘可写素材，生成适配目标岗位的简历，并通过校准报告和编辑器持续优化到可投递状态。
 
-- **Resume Builder** – Structured step-by-step editor with real-time preview
-- **AI Calibration** – Match your resume to job descriptions using LLM analysis
-- **Experience Transformer** – Rewrite bullet points to align with target roles
-- **Job Writing Map** – Break down job requirements into actionable resume content
-- **Version Management** – Save and compare multiple resume versions
-- **Export** – Generate DOCX, PDF, and Markdown outputs
-- **File Import** – Parse existing resumes from PDF and Word documents
+## 产品定位
 
-## Tech Stack
+大学生求职时的困难不是单一的"不会润色简历"，而是贯穿简历全流程：
 
-- **Framework:** [Next.js](https://nextjs.org/) 16 (App Router)
-- **UI:** [React](https://react.dev/) 19, [Tailwind CSS](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/)
-- **State:** [Zustand](https://github.com/pmndrs/zustand)
-- **Charts:** [Recharts](https://recharts.org/)
-- **Documents:** [docx](https://github.com/dolanmiu/docx), [html2canvas](https://html2canvas.hertzen.com/), [jsPDF](https://github.com/parallax/jsPDF), [mammoth](https://github.com/mwilliamson/mammoth.js), [pdfjs-dist](https://github.com/mozilla/pdf.js)
+- **不知道写什么** — 没有实习经历，只有课程项目、社团活动、竞赛等普通经历
+- **不知道怎么写** — 经历真实存在，但表达像流水账，缺少个人贡献和岗位关键词
+- **不知道写给谁看** — 同一段经历投技术、产品、运营等岗位时，表达重点不同
+- **不知道好不好** — 已有简历后，不知道是否适合投递、哪里弱、怎么改
+- **修改链路割裂** — 普通 AI 工具给出建议，但用户还需手动复制粘贴对照
 
-## Getting Started
+NorthPath 将"简历制作"和"简历校准"打通，形成完整闭环：从零散经历出发，制作一份真正适合目标岗位的简历，并持续校准优化。
+
+## 核心模块
+
+### 1. 简历制作 Resume Builder
+
+帮助大学生从零散、普通、非正式的真实经历中挖掘可写素材。
+
+- **目标岗位定位** — 明确求职阶段、岗位方向，生成岗位写作地图
+- **经历挖掘问答** — 通过低门槛问答（课程项目、校园活动、竞赛、个人作品等）挖掘可写经历
+- **可写经历池** — 将零散经历转化为可写入简历的素材，标注写入状态和价值等级
+- **难写经历转化器** — 把"看起来很普通、不知道怎么写"的经历转化为简历表达
+- **经历价值排序** — 按岗位相关性、贡献清晰度、结果可证明性等维度排序
+- **岗位化简历生成** — 根据目标岗位生成完整 Markdown 简历初稿
+
+### 2. 简历校准 Resume Calibration
+
+判断当前简历与目标岗位之间的偏差，把问题转化为可执行的修改任务。
+
+**北极星五步校准流：**
+
+1. **岗位坐标解析** — 解析 JD 或基于岗位生成通用模型
+2. **简历航向判断** — 判断简历整体是否围绕目标岗位展开
+3. **内容模块体检** — 按教育背景、技能清单、项目经历等模块检查
+4. **关键段落修正** — 对弱表达段落给出可替换表达
+5. **优化轨迹回放** — 前后对照，说明修改依据和预计提升点
+
+**投递准备度报告包含：**
+
+- **30 秒投递准备度** — 模拟招聘者快速浏览后的第一印象
+- **五维简历罗盘** — 方向匹配、经历价值、表达清晰、能力凭证、版面效率（每维 0-20 分）
+- **岗位要求命中图谱** — 直观看到目标岗位要求与简历命中情况
+- **简历内容证据链** — 检查能力声明是否有真实经历支撑
+- **经历含金量排序** — 判断哪些经历值得写深，哪些应压缩或删除
+- **空泛表达扫描** — 扫描空话、泛话并给出可替代表达
+- **简历修正路线** — 按优先级排列的可执行修改任务
+
+### 3. 简历编辑 Resume Editor
+
+校准式 Markdown 双栏编辑器，承接制作和校准结果完成修改。
+
+- **Markdown 双栏编辑** — 左侧编辑，右侧 A4 实时预览
+- **行级问题标记** — 有问题的行在行号旁显示 P0/P1/P2 标记
+- **修正任务侧栏** — 校准报告中的问题同步到编辑器，支持定位、应用、追问、忽略
+- **一键应用改写** — AI 建议需用户确认后才应用到原文
+- **本地版本库** — 基于 IndexedDB，支持版本命名、回滚、对比
+- **重新校准当前版本** — 修改后一键重新校准，查看分数变化和问题变化
+- **优化轨迹** — 展示修改前后对照、修正理由和预计提升
+- **多格式导出** — Markdown / PDF / DOCX
+
+## 用户路径
+
+**路径 A：没有简历**
+```
+进入 NorthPath → 制作简历 → 经历挖掘问答 → 可写经历池
+→ 岗位化简历初稿 → 编辑器 → 一键校准 → 按修正路线优化 → 导出
+```
+
+**路径 B：已有简历**
+```
+进入 NorthPath → 校准简历 → 上传/粘贴简历 → 投递准备度报告
+→ 五维罗盘 + 修正路线 → 编辑器逐段修改 → 版本对比 → 再次校准
+```
+
+**路径 C：换岗位投递**
+```
+打开已有版本 → 修改目标岗位/JD → 重新生成岗位坐标
+→ 判断经历保留/弱化/重写/删除 → 生成新版本 → 校准 → 保存
+```
+
+## 隐私与安全
+
+- 简历文件、校准结果、追问记录和版本记录**仅存储在本地浏览器**（IndexedDB），不上传公共服务器
+- LLM API 密钥由用户自行配置，通过本地代理转发请求
+- 不编造公司、数据、奖项或不存在的成果
+
+## 技术栈
+
+| 类别 | 技术 |
+|---|---|
+| 框架 | Next.js 16 (App Router), React 19, TypeScript |
+| 样式 | Tailwind CSS, Framer Motion |
+| 状态管理 | Zustand |
+| 本地存储 | LocalForage (IndexedDB) |
+| 图表 | Recharts |
+| 文档处理 | docx, html2canvas, jsPDF, mammoth, pdfjs-dist |
+| AI 接口 | OpenAI 兼容 API（用户自配） |
+
+## 快速开始
 
 ```bash
-# Install dependencies
+# 安装依赖
 npm install
 
-# Run development server
+# 开发模式
 npm run dev
 
-# Build for production
+# 构建
 npm run build
 
-# Run tests
+# 类型检查
+npm run check
+
+# 测试
 npm test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the app.
+打开 http://localhost:3000，在首页右上角配置 LLM API 密钥后即可使用。
+
+## 项目结构
+
+```
+app/
+├── api/ai/           # LLM 代理 API
+├── builder/          # 简历制作模块
+├── calibration/      # 简历校准模块
+├── editor/[id]/      # 简历编辑器
+├── versions/         # 版本管理页面
+└── page.tsx          # 首页
+
+src/
+├── views/            # 页面视图组件
+├── components/       # 公共组件
+├── lib/              # 业务逻辑（经历转化、校准、报告生成、导出等）
+├── services/         # 数据层（IndexedDB + LLM 调用）
+├── store/            # Zustand 状态管理
+└── hooks/            # 自定义 Hooks
+```
 
 ## License
 
